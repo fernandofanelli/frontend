@@ -1,7 +1,21 @@
+import { Routes, Route } from "react-router-dom";
+
+import Home from "./pages/home/Home";
+import Auth from "./pages/auth/Auth";
+import Profile from "./pages/profile/Profile";
 import "./App.css";
+import Layout from "./components/ui/layout/Layout";
 
 function App() {
-  return <div>Hello Bondiola</div>;
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </Layout>
+  );
 }
 
 export default App;
