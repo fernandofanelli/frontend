@@ -4,7 +4,7 @@ import Home from "./pages/home/Home";
 import Auth from "./pages/auth/Auth";
 import Profile from "./pages/profile/Profile";
 import "./App.css";
-import Layout from "./components/ui/layout/Layout";
+import Layout from "./components/layout/Layout";
 
 function App() {
   return (
