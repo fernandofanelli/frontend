@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/Button";
 import FormInput from "../../components/ui/FormInput";
 import useAuthStore from "../../store/useAuthStore";
@@ -6,6 +7,7 @@ import useAuthStore from "../../store/useAuthStore";
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
+  const navigate = useNavigate();
   const { isSigned, isLoading, signIn, signUp } = useAuthStore();
   const [isLogin, setIsLogin] = useState(true);
   const nameInputRef = useRef();
@@ -26,10 +28,11 @@ const AuthForm = () => {
 
     if (isLogin) {
       signIn(userData);
-      console.log(isSigned);
+      if (isSigned) navigate("/profile");
     } else {
       userData = { ...userData, name: nameInputRef.current.value };
       signUp(userData);
+      if (isSigned) navigate("/profile");
     }
   };
 

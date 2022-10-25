@@ -11,9 +11,7 @@ const useAuthStore = create((set) => ({
     set({ isSigned: res.ok ? true : false, isLoading: false });
   },
   signOut: () => {
-    // set({ isLoading: true });
-    // const res = await signOut(data);
-    // set({ isSigned: res.ok ? true : false, isLoading: false });
+    set({ isSigned: false });
   },
   signUp: async (data) => {
     set({ isLoading: true });
