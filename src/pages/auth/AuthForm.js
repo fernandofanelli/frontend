@@ -1,11 +1,14 @@
 import { useRef, useState } from "react";
 import Button from "../../components/ui/Button";
 import FormInput from "../../components/ui/FormInput";
+import useAuthStore from "../../store/useAuthStore";
 
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
+  const { isSigned, isLoading, signIn, signUp } = useAuthStore();
   const [isLogin, setIsLogin] = useState(true);
+  const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -16,17 +19,32 @@ const AuthForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
+    let userData = {
+      email: emailInputRef.current.value,
+      password: passwordInputRef.current.value,
+    };
 
-    console.log(enteredEmail);
-    console.log(enteredPassword);
+    if (isLogin) {
+      signIn(userData);
+      console.log(isSigned);
+    } else {
+      userData = { ...userData, name: nameInputRef.current.value };
+      signUp(userData);
+    }
   };
 
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       <form onSubmit={submitHandler}>
+        {!isLogin && (
+          <FormInput
+            className={classes.control}
+            type="text"
+            text="Your Name"
+            innerRef={nameInputRef}
+          />
+        )}
         <FormInput
           className={classes.control}
           type="email"
@@ -40,7 +58,10 @@ const AuthForm = () => {
           innerRef={passwordInputRef}
         />
         <div className={classes.actions}>
-          <Button>{isLogin ? "Login" : "Create Account"}</Button>
+          {!isLoading && (
+            <Button>{isLogin ? "Login" : "Create Account"}</Button>
+          )}
+          {isLoading && <p>Sending Request</p>}
           <Button
             type="button"
             className={classes.toggle}

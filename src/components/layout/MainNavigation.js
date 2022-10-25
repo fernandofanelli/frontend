@@ -6,7 +6,7 @@ const MainNavigation = () => {
   return (
     <header className={classes.header}>
       <Link to="/">
-        <div className={classes.logo}>Book Store</div>
+        <div className={classes.logo}>Book Club</div>
       </Link>
       <nav>
         <ul>
