@@ -1,50 +1,74 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../../components/ui/Button";
 import FormInput from "../../components/ui/FormInput";
+import useAuthStore from "../../store/useAuthStore";
 
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
+  const { isSigned, isLoading, signIn, signUp } = useAuthStore();
   const [isLogin, setIsLogin] = useState(true);
+  const nameInputRef = useRef();
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    let userData = {
+      email: emailInputRef.current.value,
+      password: passwordInputRef.current.value,
+    };
+
+    if (isLogin) {
+      signIn(userData);
+      console.log(isSigned);
+    } else {
+      userData = { ...userData, name: nameInputRef.current.value };
+      signUp(userData);
+    }
+  };
+
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      <form>
-        <FormInput className={classes.control} type="email" text="Your Email" />
+      <form onSubmit={submitHandler}>
+        {!isLogin && (
+          <FormInput
+            className={classes.control}
+            type="text"
+            text="Your Name"
+            innerRef={nameInputRef}
+          />
+        )}
+        <FormInput
+          className={classes.control}
+          type="email"
+          text="Your Email"
+          innerRef={emailInputRef}
+        />
         <FormInput
           className={classes.control}
           type="password"
           text="Your Password"
+          innerRef={passwordInputRef}
         />
-        {/*
-        <div className={classes.control}>
-          <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" required />
-        </div>
-        <div className={classes.control}>
-          <label htmlFor="password">Your Password</label>
-          <input type="password" id="password" required />
-        </div>
-  */}
         <div className={classes.actions}>
-          <Button>{isLogin ? "Login" : "Create Account"}</Button>
-          <Button className={classes.toggle} onClick={switchAuthModeHandler}>
-            {isLogin ? "Create new account" : "Login with existing account"}
-          </Button>
-          {/*
-          <button>{isLogin ? "Login" : "Create Account"}</button>
-          <button
+          {!isLoading && (
+            <Button>{isLogin ? "Login" : "Create Account"}</Button>
+          )}
+          {isLoading && <p>Sending Request</p>}
+          <Button
             type="button"
             className={classes.toggle}
             onClick={switchAuthModeHandler}
           >
             {isLogin ? "Create new account" : "Login with existing account"}
-          </button> */}
+          </Button>
         </div>
       </form>
     </section>
