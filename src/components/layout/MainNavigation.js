@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../store/useAuthStore";
+import CustomAvatar from "../ui/CustomAvatar";
 import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
   const navigate = useNavigate();
-  const { isSigned, signOut } = useAuthStore();
+  const { isSigned, signOut, userData } = useAuthStore();
 
   const logoutHandler = () => {
     signOut();
@@ -26,7 +27,9 @@ const MainNavigation = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/profile">Profile</Link>
+          <Link to="/profile">
+            <CustomAvatar image={userData.image} />
+          </Link>
         </li>
         <li>
           <button onClick={logoutHandler}>Logout</button>

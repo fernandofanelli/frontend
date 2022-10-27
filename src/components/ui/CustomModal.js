@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import { customModalStyles } from "../../../utils/customStyles";
+import { customModalStyles } from "../../utils/customStyles";
 import { Zoom } from "react-awesome-reveal";
 
 const CustomModal = (props) => {

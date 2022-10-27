@@ -27,7 +27,13 @@
   color: #38015c;
 }
 
-p {
+h4 h5 {
   display: flex;
   justify-content: center;
+}
+
+p {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }

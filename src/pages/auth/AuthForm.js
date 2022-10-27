@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/Button";
 import FormInput from "../../components/ui/FormInput";
-import CustomModal from "../../components/ui/modal/CustomModal";
+import CustomModal from "../../components/ui/CustomModal";
 import useAuthStore from "../../store/useAuthStore";
 
 import classes from "./AuthForm.module.css";

@@ -1,6 +1,6 @@
 export const customModalStyles = {
   overlay: {
-    backgroundColor: "rgba(0, 0, 0, .5)",
+    backgroundColor: "rgba(0, 0, 0, .6)",
     transition: "all 0.3s ease-out",
   },
   content: {

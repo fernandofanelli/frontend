@@ -1,7 +1,7 @@
 import React from "react";
 
 import useAuthStore from "../../store/useAuthStore";
-import CustomModal from "../ui/modal/CustomModal";
+import CustomModal from "../ui/CustomModal";
 import classes from "./BookModal.module.css";
 
 const BookModal = ({ book, closeModal }) => {
@@ -9,27 +9,34 @@ const BookModal = ({ book, closeModal }) => {
   const cssCloseButton = [classes.button, classes.closeModal];
   const cssOrderButton = [classes.button, classes.buttonOrder];
 
-  const customModalContent = (
-    <div className={classes.bookDetails}>
-      <img src={book.image} alt={book.title}></img>
-      <button className={cssCloseButton.join(" ")} onClick={closeModal}>
-        X
-      </button>
-      <div className={classes.bookDetailsDescription}>
-        <p>
-          <strong>{book.title}</strong>
-        </p>
-        <p>{book.description}</p>
-        {isSigned && (
-          <button onClick={() => {}} className={cssOrderButton.join(" ")}>
-            Order Book
-          </button>
-        )}
+  return (
+    <CustomModal closed={closeModal}>
+      {" "}
+      <div className={classes.bookDetails}>
+        <img src={book.image} alt={book.title}></img>
+        <button className={cssCloseButton.join(" ")} onClick={closeModal}>
+          X
+        </button>
+        <div className={classes.bookDetailsDescription}>
+          <h4>
+            <strong>{book.title}</strong>
+          </h4>
+          <h5>{book.description}</h5>
+          <div className={classes.bookInformation}>
+            <p>Author: {book.author}</p>
+            <p>Language: {book.language}</p>
+            <p>Genre: {book.genre}</p>
+            <p>Publication Date: {book.publicationDate}</p>
+          </div>
+          {isSigned && book.available && (
+            <button onClick={() => {}} className={cssOrderButton.join(" ")}>
+              Order Book
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+    </CustomModal>
   );
-
-  return <CustomModal closed={closeModal}>{customModalContent}</CustomModal>;
 };
 
 export default BookModal;
