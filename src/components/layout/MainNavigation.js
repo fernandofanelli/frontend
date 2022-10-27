@@ -38,7 +38,7 @@ const MainNavigation = () => {
   return (
     <header className={classes.header}>
       <Link to="/">
-        <div className={classes.logo}>Book Club</div>
+        <div className={classes.logo}>Bookstore</div>
       </Link>
       {isSigned ? logoutNavigation : loginNavigation}
     </header>

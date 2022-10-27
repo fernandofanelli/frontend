@@ -1,0 +1,47 @@
+.closeModal {
+  position: absolute;
+  right: 0px;
+}
+
+.bookDetails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.bookDetails img {
+  max-height: 80%;
+  max-width: 50%;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.bookDetailsDescription {
+  flex: 1 1;
+  margin: 50px;
+}
+
+.button {
+  font: inherit;
+  cursor: pointer;
+  font: inherit;
+  color: white;
+  background-color: #9f5ccc;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.buttonOrder {
+  position: absolute;
+}
+
+.button:hover {
+  background-color: #c291e2;
+  color: #38015c;
+}
+
+p {
+  display: flex;
+  justify-content: center;
+}
