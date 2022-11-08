@@ -3,16 +3,18 @@ import { signIn, signUp } from "../api/auth";
 
 const useAuthStore = create((set) => ({
   isSigned: false,
+  userData: {},
   isLoading: false,
   errMsg: "",
   signIn: async (data) => {
     set({ isLoading: true });
     const res = await signIn(data);
-    const message = await res.json().then((d) => d.message);
+    const json = await res.json().then((d) => d);
     set({
       isSigned: res.ok ? true : false,
+      userData: res.ok ? json.identifiedUser : [],
       isLoading: false,
-      errMsg: res.ok ? "" : message,
+      errMsg: res.ok ? "" : json.message,
     });
   },
   signOut: () => {
@@ -21,11 +23,12 @@ const useAuthStore = create((set) => ({
   signUp: async (data) => {
     set({ isLoading: true });
     const res = await signUp(data);
-    const message = await res.json().then((d) => d.message);
+    const json = await res.json().then((d) => d);
     set({
       isSigned: res.ok ? true : false,
+      userData: res.ok ? json.identifiedUser : [],
       isLoading: false,
-      errMsg: res.ok ? "" : message,
+      errMsg: res.ok ? "" : json.message,
     });
   },
   cleanErrMsg: () => set({ errMsg: "" }),

@@ -1,9 +1,10 @@
 import React from "react";
+import Books from "../../components/book/Books";
 
 const Home = () => {
   return (
     <section>
-      <h1>Welcome on Board!</h1>
+      <Books />
     </section>
   );
 };

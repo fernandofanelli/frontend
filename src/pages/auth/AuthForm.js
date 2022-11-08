@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/Button";
 import FormInput from "../../components/ui/FormInput";
-import Modal from "../../components/ui/modal/Modal";
+import CustomModal from "../../components/ui/CustomModal";
 import useAuthStore from "../../store/useAuthStore";
 
 import classes from "./AuthForm.module.css";
@@ -12,7 +12,6 @@ const AuthForm = () => {
   const { isSigned, isLoading, errMsg, signIn, signUp, cleanErrMsg } =
     useAuthStore();
   const [isLogin, setIsLogin] = useState(true);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -25,12 +24,7 @@ const AuthForm = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const showModal = () => {
-    setModalIsOpen(true);
-  };
-
   const closeModal = () => {
-    setModalIsOpen(false);
     cleanErrMsg();
   };
 
@@ -44,13 +38,23 @@ const AuthForm = () => {
 
     if (isLogin) {
       signIn(userData);
-      if (!isSigned) showModal();
     } else {
       userData = { ...userData, name: nameInputRef.current.value };
       signUp(userData);
-      if (!isSigned) showModal();
     }
   };
+
+  const customModalContent = (
+    <div>
+      <h1>
+        <p>{"Authentication Error"}</p>
+      </h1>
+      <p>{errMsg}</p>
+      <Button type="button" className={classes.actions} onClick={closeModal}>
+        Close
+      </Button>
+    </div>
+  );
 
   return (
     <>
@@ -99,12 +103,7 @@ const AuthForm = () => {
       </section>
 
       {errMsg.length !== 0 && (
-        <Modal
-          label={"Authentication Error"}
-          message={errMsg}
-          show={modalIsOpen}
-          closed={closeModal}
-        />
+        <CustomModal closed={closeModal}>{customModalContent}</CustomModal>
       )}
     </>
   );
