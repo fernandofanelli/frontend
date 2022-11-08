@@ -1,0 +1,39 @@
+.book {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Lato", sans-serif;
+}
+
+.book img {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.button {
+  font: inherit;
+  cursor: pointer;
+  font: inherit;
+  color: white;
+  background-color: #9f5ccc;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.button:hover {
+  background-color: #c291e2;
+  color: #38015c;
+}
+
+h4 h5 {
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}

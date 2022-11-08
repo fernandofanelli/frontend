@@ -1,0 +1,80 @@
+.customFileUpload {
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  padding: 6px;
+  cursor: pointer;
+  background: linear-gradient(270deg, #c291e2, #38015c);
+  margin-bottom: 25px;
+}
+
+.imgWrap {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+form {
+  flex: 1;
+}
+
+.parentDiv {
+  margin-top: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.leftDiv {
+  display: flex;
+  left: 10%;
+}
+
+.rightDiv {
+  display: flex;
+  right: 10%;
+}
+
+.name {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #676767;
+  max-width: 220px;
+  overflow-wrap: break-word;
+}
+
+.email {
+  text-align: center;
+  max-width: 220px;
+  overflow-wrap: break-word;
+}
+
+.actions {
+  cursor: pointer;
+  font: inherit;
+  color: white;
+  background-color: #9f5ccc;
+  border: 1px solid #9f5ccc;
+  border-radius: 4px;
+  padding: 0.5rem 2.5rem;
+}
+
+.books {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5%;
+  margin: 0;
+  list-style-type: none;
+}
+
+.books li {
+  flex: 0 1 300px;
+  height: 450px;
+  padding: 16px;
+}
