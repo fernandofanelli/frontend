@@ -13,7 +13,7 @@ const BookModal = ({ book, closeModal }) => {
     <CustomModal closed={closeModal}>
       {" "}
       <div className={classes.bookDetails}>
-        <img src={book.image} alt={book.title}></img>
+        <img src={book.cover_image} alt={book.title}></img>
         <button className={cssCloseButton.join(" ")} onClick={closeModal}>
           X
         </button>
@@ -21,7 +21,7 @@ const BookModal = ({ book, closeModal }) => {
           <h4>
             <strong>{book.title}</strong>
           </h4>
-          <h5>{book.description}</h5>
+          {/* <h5>{book.plot}</h5> */}
           <div className={classes.bookInformation}>
             <p>Author: {book.author}</p>
             <p>Language: {book.language}</p>

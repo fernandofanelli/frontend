@@ -13,7 +13,7 @@ const Books = () => {
   }, []);
 
   return (
-    <Fade bottom cascade>
+    <Fade bottom cascade triggerOnce damping={0.2}>
       {!books ? (
         <div>Loading...</div>
       ) : (
