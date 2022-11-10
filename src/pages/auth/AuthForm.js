@@ -17,7 +17,7 @@ const AuthForm = () => {
   const passwordInputRef = useRef();
 
   useEffect(() => {
-    if (isSigned) navigate("/profile");
+    if (isSigned) navigate("/");
   }, [isSigned]);
 
   const switchAuthModeHandler = () => {

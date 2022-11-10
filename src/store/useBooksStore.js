@@ -10,8 +10,9 @@ const useBooksStore = create((set) => ({
     set({ isLoading: true });
     const res = await getBooks(data);
     const json = await res.json().then((d) => d);
+    console.log(json);
     set({
-      books: [...json.DUMMY_BOOKS],
+      books: [...json.books],
       isLoading: false,
       errMsg: res.ok ? "" : json.message,
     });
