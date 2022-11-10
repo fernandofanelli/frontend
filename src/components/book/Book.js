@@ -24,11 +24,11 @@ const Book = ({ book, key }) => {
       <li key={key}>
         <div className={classes.book}>
           <a href={bookRef} onClick={() => openModal(book)}>
-            <img src={book.image} alt={book.title}></img>
-            <p>{book.title}</p>
+            <img src={book.cover_image} alt={book.title} />
+            <p className={classes.title}>{book.title}</p>
           </a>
           <div className={classes.book}>
-            {isSigned && book.available && (
+            {isSigned && book.amount && (
               <button onClick={() => {}} className={classes.button}>
                 Order Book
               </button>
