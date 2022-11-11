@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BookModal from "./BookModal";
 
+import Button from "../ui/Button";
 import useAuthStore from "../../store/useAuthStore";
 import classes from "./Book.module.css";
 
@@ -19,6 +20,17 @@ const Book = ({ book, key }) => {
     setBookModal(null);
   };
 
+  const stockButton = (
+    <Button
+      type="button"
+      className={classes.button}
+      onClick={() => console.log("Press")}
+      disabled={book.amount === 0}
+    >
+      {book.amount ? "Order Book" : "Out of Stock"}
+    </Button>
+  );
+
   return (
     <div>
       <li key={key}>
@@ -27,13 +39,7 @@ const Book = ({ book, key }) => {
             <img src={book.cover_image} alt={book.title} />
             <p className={classes.title}>{book.title}</p>
           </a>
-          <div className={classes.book}>
-            {isSigned && book.amount && (
-              <button onClick={() => {}} className={classes.button}>
-                Order Book
-              </button>
-            )}
-          </div>
+          {isSigned && stockButton}
         </div>
       </li>
       {bookModal && <BookModal book={bookModal} closeModal={closeModal} />}
