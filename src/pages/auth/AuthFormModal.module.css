@@ -1,3 +1,7 @@
+.ReactModal__Content .ReactModal__Content--after-open {
+  background-color: none;
+}
+
 .auth {
   margin: 3rem auto;
   width: 95%;
