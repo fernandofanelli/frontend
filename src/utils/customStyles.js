@@ -10,6 +10,8 @@ export const customModalStyles = {
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
+    maxWidth: "600px",
+    maxHeight: "600px",
     transform: "translate(-50%, -50%)",
     borderRadius: "4px",
     backgroundColor: "#e6e6e6",

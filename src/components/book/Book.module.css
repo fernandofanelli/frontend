@@ -22,13 +22,6 @@
   padding: 16px;
 }
 
-p {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  text-overflow: ellipsis;
-}
-
 .title {
   display: flex;
   justify-content: center;
