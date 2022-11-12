@@ -8,7 +8,7 @@ const CustomModal = (props) => {
     <Modal
       isOpen
       ariaHideApp={false}
-      style={customModalStyles}
+      style={Object.assign({}, customModalStyles, props.style)}
       closeTimeoutMS={2000}
       onRequestClose={props.closed}
     >

@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AuthFormModal from "../../pages/auth/AuthFormModal";
 
 import useAuthStore from "../../store/useAuthStore";
 import CustomAvatar from "../ui/CustomAvatar";
@@ -7,23 +9,32 @@ import classes from "./MainNavigation.module.css";
 const MainNavigation = () => {
   const navigate = useNavigate();
   const { isSigned, signOut, userData } = useAuthStore();
+  const [authModal, setAuthModal] = useState(null);
 
   const logoutHandler = () => {
     signOut();
     navigate("/");
   };
 
-  const loginNavigation = (
+  const openLoginModal = () => {
+    setAuthModal(true);
+  };
+
+  const closeLoginModal = () => {
+    setAuthModal(null);
+  };
+
+  const LoginNavigation = (
     <nav>
       <ul>
         <li>
-          <Link to="/auth">Login</Link>
+          <button onClick={openLoginModal}>Login</button>
         </li>
       </ul>
     </nav>
   );
 
-  const logoutNavigation = (
+  const LogoutNavigation = (
     <nav>
       <ul>
         <li>
@@ -39,12 +50,15 @@ const MainNavigation = () => {
   );
 
   return (
-    <header className={classes.header}>
-      <Link to="/">
-        <div className={classes.logo}>Bookstore</div>
-      </Link>
-      {isSigned ? logoutNavigation : loginNavigation}
-    </header>
+    <>
+      <header className={classes.header}>
+        <Link to="/">
+          <div className={classes.logo}>Bookstore</div>
+        </Link>
+        {isSigned ? LogoutNavigation : LoginNavigation}
+      </header>
+      {authModal && <AuthFormModal closeModal={closeLoginModal} />}
+    </>
   );
 };
 

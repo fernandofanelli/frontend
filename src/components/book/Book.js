@@ -26,9 +26,8 @@ const Book = ({ book, key }) => {
       className={classes.button}
       onClick={() => console.log("Press")}
       disabled={book.amount === 0}
-    >
-      {book.amount ? "Order Book" : "Out of Stock"}
-    </Button>
+      text={book.amount ? "Order Book" : "Out of Stock"}
+    />
   );
 
   return (

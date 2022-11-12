@@ -1,18 +1,18 @@
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/home/Home";
-import Auth from "./pages/auth/Auth";
 import Profile from "./pages/profile/Profile";
 import "./App.css";
 import Layout from "./components/layout/Layout";
+import BookDetail from "./components/book/BookDetail";
 
 function App() {
   return (
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/book/:id" element={<BookDetail />} />
       </Routes>
     </Layout>
   );
