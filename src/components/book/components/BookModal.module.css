@@ -9,9 +9,25 @@
   justify-content: space-between;
 }
 
+.imgWrapper {
+  max-width: 200px;
+  max-height: 300px;
+  margin-top: 40px;
+  padding-right: 20px;
+}
+
 .summary {
-  flex: 1 1;
+  flex: 1;
   margin: 10px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600px;
+}
+
+.synopsis {
+  font-size: 15px;
 }
 
 .buttonContainer {

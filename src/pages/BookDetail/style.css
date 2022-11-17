@@ -1,0 +1,50 @@
+.MuiContainer-root.product-view {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.product-view .image-wrapper img {
+  width: 100%;
+  margin-left: 150px;
+}
+
+.product-view .text {
+  color: #000;
+  margin-left: 180px;
+}
+
+.product-view .text h2 {
+  color: #000;
+  font-size: 30px;
+}
+
+.product-view .text h3 {
+  color: #000;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.product-view .MuiGrid-root .MuiGrid-item {
+  padding: 5px 15px;
+}
+
+.actions button {
+  cursor: pointer;
+  font: inherit;
+  color: white;
+  background-color: #9f5ccc;
+  border: 1px solid #9f5ccc;
+  border-radius: 4px;
+  padding: 0.5rem 2.5rem;
+}
+
+@media (min-width: 960px) {
+  .MuiContainer-root.product-view {
+    height: 88vh;
+    margin: 40px 0 0;
+  }
+}
