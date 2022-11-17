@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import BookModal from "./BookModal";
 
-import Button from "../ui/Button";
-import useAuthStore from "../../store/useAuthStore";
+import Button from "../../ui/Button";
+import useAuthStore from "../../../store/useAuthStore";
 import classes from "./Book.module.css";
 
 const Book = ({ book, key }) => {
@@ -20,7 +20,7 @@ const Book = ({ book, key }) => {
     setBookModal(null);
   };
 
-  const stockButton = (
+  const StockButton = (
     <Button
       type="button"
       className={classes.button}
@@ -38,7 +38,7 @@ const Book = ({ book, key }) => {
             <img src={book.cover_image} alt={book.title} />
             <p className={classes.title}>{book.title}</p>
           </a>
-          {isSigned && stockButton}
+          {isSigned && StockButton}
         </div>
       </li>
       {bookModal && <BookModal book={bookModal} closeModal={closeModal} />}

@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
-import Button from "../../components/ui/Button";
-import FormInput from "../../components/ui/FormInput";
-import CustomModal from "../../components/ui/CustomModal";
+import Button from "../ui/Button";
+import FormInput from "../ui/FormInput";
+import CustomModal from "../ui/CustomModal";
 import useAuthStore from "../../store/useAuthStore";
 
 import classes from "./AuthFormModal.module.css";

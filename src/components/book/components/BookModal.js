@@ -1,25 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import useAuthStore from "../../store/useAuthStore";
-import CustomModal from "../ui/CustomModal";
-import Button from "../ui/Button";
+import CustomModal from "../../ui/CustomModal";
+import Button from "../../ui/Button";
 import classes from "./BookModal.module.css";
-import BookDetail from "./BookDetail";
+import BookDetail from "../../../pages/BookDetail/BookDetail";
+import useBooksStore from "../../../store/useBooksStore";
+import useAuthStore from "../../../store/useAuthStore";
 
 const BookModal = ({ book, closeModal }) => {
   const navigate = useNavigate();
   const { isSigned } = useAuthStore();
+  const { setBookView } = useBooksStore();
+  const [shorterSynopsis, setShorterSynopsis] = useState("false");
   const [showBookDetails, setShowBookDetails] = useState(false);
   const cssCloseButton = [classes.button, classes.closeModal];
   const cssOrderButton = [classes.button, classes.buttonOrder];
+  const MAX_AMOUNT_WORDS = 500;
+
+  useEffect(() => {
+    setShorterSynopsis(book.synopsis);
+    if (book.synopsis.length > MAX_AMOUNT_WORDS)
+      setShorterSynopsis(book.synopsis.substring(0, MAX_AMOUNT_WORDS) + "...");
+  }, []);
 
   const readMoreHandler = () => {
     navigate("/book/" + book.id);
+    setBookView(book);
     setShowBookDetails(true);
   };
 
-  const stockButton = (
+  const StockButton = (
     <Button
       type="button"
       className={cssOrderButton.join(" ")}
@@ -43,19 +54,26 @@ const BookModal = ({ book, closeModal }) => {
     <>
       <CustomModal closed={closeModal}>
         <div className={classes.bookDetails}>
-          <img src={book.cover_image} alt={book.title}></img>
+          <img
+            src={book.cover_image}
+            alt={book.title}
+            className={classes.imgWrapper}
+          ></img>
           <Button
             className={cssCloseButton.join(" ")}
             onClick={closeModal}
             text="X"
           />
           <div className={classes.summary}>
-            <p>{book.title}</p>
-            <p className={classes.synopsis}>{book.synopsis}</p>
+            <p className={classes.title}>
+              <b>{book.title}</b>
+            </p>
+            <hr />
+            <p className={classes.synopsis}>{shorterSynopsis}</p>
 
             <div className={classes.buttonContainer}>
               {isSigned && ReadMore}
-              {isSigned && stockButton}
+              {isSigned && StockButton}
             </div>
           </div>
         </div>

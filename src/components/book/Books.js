@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Book from "./Book";
+import Book from "./components/Book";
 import { Fade } from "react-awesome-reveal";
 
 import classes from "./Books.module.css";
