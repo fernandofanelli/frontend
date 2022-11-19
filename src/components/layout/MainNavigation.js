@@ -10,7 +10,6 @@ const MainNavigation = () => {
   const navigate = useNavigate();
   const { isSigned, signOut, userData } = useAuthStore();
   const [authModal, setAuthModal] = useState(null);
-  const [searchBook, setSearchBook] = useState("");
 
   const logoutHandler = () => {
     signOut();
@@ -24,22 +23,6 @@ const MainNavigation = () => {
   const closeLoginModal = () => {
     setAuthModal(null);
   };
-
-  //   const SearchBar = <div className={classes.searchs}>
-  //   <Input
-  //     className={classes.searchb}
-  //     type="text"
-  //     placeholder="Search..."
-  //     onChange={(event) => {
-  //       setSearchTerm(event.target.value);
-  //     }}
-  //     startAdornment={
-  //       <InputAdornment position="start">
-  //         <SearchIcon />
-  //       </InputAdornment>
-  //     }
-  //   />
-  // </div>
 
   const LoginNavigation = (
     <nav>
