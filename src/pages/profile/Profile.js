@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Book from "../../components/book/Book";
+import Book from "../../components/Book/components/Book";
 import Button from "../../components/ui/Button";
 import { Fade } from "react-awesome-reveal";
 
@@ -21,7 +21,7 @@ const Profile = () => {
         <div className={classes.leftDiv}>
           <label className={classes.customFileUpload}>
             <div className={classes.imgWrap}>
-              <img src={userData.image} alt="user img" />
+              <img src={userData.image_cover} alt="user img" />
             </div>
           </label>
         </div>

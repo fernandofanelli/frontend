@@ -5,6 +5,7 @@ const useBooksStore = create((set) => ({
   books: [],
   userBooks: [],
   allUserBooks: [],
+  bookView: [],
   isLoading: false,
   errMsg: "",
   getBooks: async (data) => {
@@ -35,6 +36,11 @@ const useBooksStore = create((set) => ({
       allUserBooks: [...json.books],
       isLoading: false,
       errMsg: res.ok ? "" : json.message,
+    });
+  },
+  setBookView: (data) => {
+    set({
+      bookView: data,
     });
   },
   cleanErrMsg: () => set({ errMsg: "" }),
