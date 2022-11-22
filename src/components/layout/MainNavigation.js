@@ -39,7 +39,7 @@ const MainNavigation = () => {
       <ul>
         <li>
           <Link to="/profile">
-            <CustomAvatar image={userData.image} />
+            {/* <CustomAvatar image={userData.image} /> */}
           </Link>
         </li>
         <li>

@@ -37,7 +37,7 @@ const Books = () => {
   );
 
   return (
-    <main>
+    <section>
       <div className={classes.content}>
         <CustomCarousel />
       </div>
@@ -67,7 +67,7 @@ const Books = () => {
             ))}
         </Grid>
       </div>
-    </main>
+    </section>
   );
 };
 
