@@ -1,5 +1,5 @@
 import create from "zustand";
-import { getBooks, getUserBooks, getAllUserBooks } from "../api/books";
+import { getBooks, getUserBooks, getAllUserBooks, getAllUserBorrowingBooks } from "../api/books";
 
 const useBooksStore = create((set) => ({
   books: [],
@@ -37,6 +37,17 @@ const useBooksStore = create((set) => ({
       errMsg: res.ok ? "" : json.message,
     });
   },
+  getAllUserBorrowingBooks: async (data) => {
+    set({ isLoading: true });
+    const res = await getAllUserBorrowingBooks(data);
+    const json = await res.json().then((d) => d);
+    set({
+      allUserBooks: [...json.books],
+      isLoading: false,
+      errMsg: res.ok ? "" : json.message,
+    });
+  },
+
   cleanErrMsg: () => set({ errMsg: "" }),
 }));
 

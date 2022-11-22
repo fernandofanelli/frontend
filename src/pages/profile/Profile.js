@@ -8,13 +8,16 @@ import useBooksStore from "../../store/useBooksStore";
 import classes from "./Profile.module.css";
 
 const Profile = () => {
-  const { userBooks, getUserBooks } = useBooksStore();
+  const { books , userBooks, getUserBooks } = useBooksStore();
   const { userData } = useAuthStore();
 
   useEffect(() => {
     getUserBooks(userData.id);
+    
   }, []);
 
+  console.log(userBooks);
+  console.log(books);
   return (
     <div>
       <div className={classes.parentDiv}>

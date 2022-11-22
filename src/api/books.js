@@ -4,6 +4,7 @@ import {
   GET_BOOK_URL,
   GET_ALL_USER_BOOKS_URL,
   GET_USER_BOOKS_URL,
+  GET_ALL_USER_BORROWING_BOOKS_URL,
 } from "./constants";
 
 export const getBooks = async () => await fetch(`${BASE_URL}${GET_BOOKS_URL}`);
@@ -13,6 +14,9 @@ export const getBook = async (bid) =>
 
 export const getAllUserBooks = async () =>
   await fetch(`${BASE_URL}${GET_ALL_USER_BOOKS_URL}`);
+
+export const getAllUserBorrowingBooks = async (uid) =>
+  await fetch(`${BASE_URL}${GET_ALL_USER_BORROWING_BOOKS_URL.replace(":uid", uid)}`);
 
 export const getUserBooks = async (uid) =>
   await fetch(`${BASE_URL}${GET_USER_BOOKS_URL.replace(":uid", uid)}`);
