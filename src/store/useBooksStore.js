@@ -5,6 +5,7 @@ const useBooksStore = create((set) => ({
   books: [],
   userBooks: [],
   allUserBooks: [],
+  bookView: [],
   isLoading: false,
   errMsg: "",
   getBooks: async (data) => {
