@@ -8,7 +8,7 @@ import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
   const navigate = useNavigate();
-  const { isSigned, signOut, userData } = useAuthStore();
+  const { isSigned, signIn, signOut } = useAuthStore();
   const [authModal, setAuthModal] = useState(null);
 
   const logoutHandler = () => {
@@ -39,7 +39,7 @@ const MainNavigation = () => {
       <ul>
         <li>
           <Link to="/profile">
-            <CustomAvatar image={userData.image} />
+            <CustomAvatar image="" />
           </Link>
         </li>
         <li>

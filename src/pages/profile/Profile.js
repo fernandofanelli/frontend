@@ -13,6 +13,8 @@ const Profile = () => {
 
   useEffect(() => {
     getUserBooks(userData.id);
+    console.log(userBooks);
+    console.log(userData);
   }, []);
 
   return (
@@ -21,7 +23,7 @@ const Profile = () => {
         <div className={classes.leftDiv}>
           <label className={classes.customFileUpload}>
             <div className={classes.imgWrap}>
-              <img src={userData.image_cover} alt="user img" />
+              <img src="" alt="user img" />
             </div>
           </label>
         </div>
