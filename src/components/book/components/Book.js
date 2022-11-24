@@ -13,23 +13,32 @@ import { Link } from "react-router-dom";
 
 import useAuthStore from "../../../store/useAuthStore";
 import useBooksStore from "../../../store/useBooksStore";
+import useUserBooksStore from "../../../store/useUserBooksStore";
 import useStyles from "./styles";
 
 const Book = ({ book }) => {
-  const { isSigned } = useAuthStore();
-  const { setBookView } = useBooksStore();
+  const { isSigned, userData } = useAuthStore();
+  const { orderBook } = useUserBooksStore();
   const [shorterTitle, setShorterTitle] = useState("false");
   const classes = useStyles();
 
   useEffect(() => {
     setShorterTitle(book.title);
-    if (book.title.length > 25)
-      setShorterTitle(book.title.substring(0, 20) + "...");
+    if (book.title.length > 17)
+      setShorterTitle(book.title.substring(0, 17) + "...");
   }, []);
+
+  const orderBookHandler = () => {
+    let body = {
+      bid: book.id,
+      uid: userData.userId,
+    };
+    orderBook(body);
+  };
 
   return (
     <Card className={classes.root}>
-      <Link to={`book/${book.id}`} onClick={() => setBookView(book)}>
+      <Link to={`book/${book.id}`}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
@@ -52,7 +61,8 @@ const Book = ({ book }) => {
             variant="contained"
             className={classes.button}
             endIcon={<BookmarkBorderIcon />}
-            onClick={() => console.log("Press")}
+            onClick={() => orderBookHandler()}
+            disabled={book.amount === 0}
           >
             <b>{book.amount ? "Order Book" : "Out of Stock"}</b>
           </Button>

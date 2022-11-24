@@ -11,11 +11,26 @@ import { getCurrentUserToken } from "./utils/service";
 import "./App.css";
 
 function App() {
-  const { refreshSession } = useAuthStore();
+  const { refreshSession, isSigned } = useAuthStore();
 
   useEffect(() => {
     if (getCurrentUserToken() !== "") refreshSession();
   }, []);
+
+  const AuthenticatedUser = (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/book/:id" element={<BookDetail />} />
+    </Routes>
+  );
+
+  const BaseUser = (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/book/:id" element={<BookDetail />} />
+    </Routes>
+  );
 
   return (
     <Layout>

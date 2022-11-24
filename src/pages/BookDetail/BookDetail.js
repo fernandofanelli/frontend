@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Container, Grid, Button, Typography } from "@mui/material";
 import CustomGrid from "../../components/ui/CustomGrid";
 
@@ -9,7 +10,12 @@ import "./style.css";
 
 const BookDetail = () => {
   const { isSigned } = useAuthStore();
-  const { bookView } = useBooksStore();
+  const { getBook, bookView } = useBooksStore();
+  let { id } = useParams();
+
+  useEffect(() => {
+    getBook(id);
+  }, []);
 
   return (
     <Container className="product-view">
