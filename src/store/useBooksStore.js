@@ -1,11 +1,18 @@
 import create from "zustand";
-import { getBooks, getUserBooks, getAllUserBooks } from "../api/books";
+import {
+  getBooks,
+  getBook,
+  getUserBooks,
+  getAllUserBooks,
+  getMatchingBooks,
+} from "../api/books";
 
 const useBooksStore = create((set) => ({
   books: [],
   userBooks: [],
   allUserBooks: [],
-  bookView: [],
+  bookView: {},
+  searchedBooks: [],
   isLoading: false,
   errMsg: "",
   getBooks: async (data) => {
@@ -28,6 +35,27 @@ const useBooksStore = create((set) => ({
       errMsg: res.ok ? "" : json.message,
     });
   },
+  getBook: async (data) => {
+    set({ isLoading: true });
+    const res = await getBook(data);
+    const json = await res.json().then((d) => d);
+    set({
+      bookView: json.data,
+      isLoading: false,
+      errMsg: res.ok ? "" : json.message,
+    });
+  },
+  searchBooks: async (data) => {
+    set({ isLoading: true });
+    const res = await getMatchingBooks(data);
+    const json = await res.json().then((d) => d);
+    console.log("results", json);
+    set({
+      searchedBooks: [...json.data],
+      isLoading: false,
+      errMsg: res.ok ? "" : json.message,
+    });
+  },
   getAllUserBooks: async (data) => {
     set({ isLoading: true });
     const res = await getAllUserBooks(data);
@@ -38,12 +66,8 @@ const useBooksStore = create((set) => ({
       errMsg: res.ok ? "" : json.message,
     });
   },
-  setBookView: (data) => {
-    set({
-      bookView: data,
-    });
-  },
   cleanErrMsg: () => set({ errMsg: "" }),
+  cleanSearchBooks: () => set({ searchedBooks: [] }),
 }));
 
 export default useBooksStore;

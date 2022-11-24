@@ -10,7 +10,8 @@ import useBooksStore from "../../store/useBooksStore";
 import CustomCarousel from "../Carousel/CustomCarousel";
 
 const Books = () => {
-  const { books, getBooks } = useBooksStore();
+  const { books, getBooks, searchBooks, searchedBooks, cleanSearchBooks } =
+    useBooksStore();
   const [searchBook, setSearchBook] = useState("");
   const classes = useStyles();
 
@@ -18,15 +19,29 @@ const Books = () => {
     getBooks();
   }, []);
 
+  useEffect(() => {
+    if (searchBook.length === 0) {
+      //getBooks();
+      cleanSearchBooks();
+    }
+    if (searchBook.length > 2) {
+      searchBooks(searchBook);
+    }
+  }, [searchBook]);
+
+  const searchHandler = (e) => {
+    setSearchBook(e.target.value);
+  };
+
+  console.log(searchedBooks);
+
   const SearchBar = (
     <div className={classes.searchs}>
       <Input
         className={classes.searchb}
         type="text"
         placeholder="Search..."
-        onChange={(event) => {
-          setSearchBook(event.target.value);
-        }}
+        onChange={searchHandler}
         startAdornment={
           <InputAdornment position="start">
             <SearchIcon fontSize="medium" htmlColor="black" />
@@ -35,6 +50,18 @@ const Books = () => {
       />
     </div>
   );
+
+  const AllBook = books.map((book) => (
+    <Grid item key={book.id} xs={12} sm={6} md={4} lg={3} id="books">
+      <Book book={book} />
+    </Grid>
+  ));
+
+  const SearchedBook = searchedBooks.map((book) => (
+    <Grid item key={book.id} xs={12} sm={6} md={4} lg={3} id="books">
+      <Book book={book} />
+    </Grid>
+  ));
 
   return (
     <section>
@@ -49,22 +76,7 @@ const Books = () => {
           justify="center"
           spacing={5}
         >
-          {books
-            .filter((book) => {
-              if (searchBook === "") return book;
-              else if (
-                book.title
-                  .toLowerCase()
-                  .includes(searchBook.toLocaleLowerCase())
-              ) {
-                return book;
-              }
-            })
-            .map((book) => (
-              <Grid item key={book.id} xs={12} sm={6} md={4} lg={3} id="books">
-                <Book book={book} />
-              </Grid>
-            ))}
+          {searchBook.length < 3 ? AllBook : SearchedBook}
         </Grid>
       </div>
     </section>

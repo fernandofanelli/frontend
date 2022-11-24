@@ -29,7 +29,7 @@ export default makeStyles(() => ({
     alignItems: "center",
   },
   button: {
-    background: "#1C2331",
+    background: "#1C2331 !important",
     color: "white",
     width: "100%",
     height: "40px",
