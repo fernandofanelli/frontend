@@ -3,14 +3,14 @@ import { refreshSession, signIn, signUp } from "../api/auth";
 
 const useAuthStore = create((set) => ({
   isSigned: false,
-  userData: {},
+  userData: [],
   isLoading: false,
   errMsg: "",
-  refreshSession: async () => {
+  refreshSession: async (token) => {
     set({ isLoading: true });
     const res = await refreshSession();
     const json = await res.json().then((d) => d);
-    localStorage.setItem("token", res.ok ? json.token : "");
+    localStorage.setItem("token", res.ok ? token : "");
     set({
       isSigned: res.ok ? true : false,
       userData: res.ok ? json.data : [],

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthFormModal from "../Auth/AuthFormModal";
+import BookFormModal from "../BookEditModal/BookFormModal";
 
 import useAuthStore from "../../store/useAuthStore";
 import CustomAvatar from "../ui/CustomAvatar";
@@ -8,12 +9,26 @@ import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
   const navigate = useNavigate();
-  const { isSigned, signIn, signOut } = useAuthStore();
+  const { isSigned, signOut, userData } = useAuthStore();
   const [authModal, setAuthModal] = useState(null);
+  const [uploadBookModal, setUploadBook] = useState(null);
+  const [initials, setInitials] = useState("");
+
+  useEffect(() => {
+    setInitials(userData === "undefined" ? "" : userData.name);
+  }, [isSigned]);
 
   const logoutHandler = () => {
     signOut();
     navigate("/");
+  };
+
+  const openUploadBookModal = () => {
+    setUploadBook(true);
+  };
+
+  const closeUploadBookModal = () => {
+    setUploadBook(null);
   };
 
   const openLoginModal = () => {
@@ -39,8 +54,11 @@ const MainNavigation = () => {
       <ul>
         <li>
           <Link to="/profile">
-            <CustomAvatar image="" />
+            <CustomAvatar name={initials} />
           </Link>
+        </li>
+        <li>
+          <button onClick={openUploadBookModal}>Upload Book</button>
         </li>
         <li>
           <button onClick={logoutHandler}>Logout</button>
@@ -58,6 +76,7 @@ const MainNavigation = () => {
         {isSigned ? LogoutNavigation : LoginNavigation}
       </header>
       {authModal && <AuthFormModal closeModal={closeLoginModal} />}
+      {uploadBookModal && <BookFormModal closeModal={closeUploadBookModal} />}
     </>
   );
 };
