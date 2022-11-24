@@ -2,6 +2,7 @@ import {
   BASE_URL,
   GET_BOOKS_URL,
   GET_BOOK_URL,
+  GET_MATCHING_BOOKS_URL,
   GET_ALL_USER_BOOKS_URL,
   GET_USER_BOOKS_URL,
 } from "./constants";
@@ -19,6 +20,11 @@ export const getUserBooks = async (uid) =>
   await fetch(
     `${BASE_URL}${GET_USER_BOOKS_URL.replace(":uid", uid)}`,
     getMethod()
+  );
+
+export const getMatchingBooks = async (value) =>
+  await fetch(
+    `${BASE_URL}${GET_MATCHING_BOOKS_URL.replace(":searchValue", value)}`
   );
 
 const getMethod = () => {

@@ -2,6 +2,7 @@ export const customModalStyles = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, .6)",
     transition: "all 0.3s ease-out",
+    zIndex: "1000",
   },
   content: {
     top: "50%",
@@ -15,5 +16,6 @@ export const customModalStyles = {
     transform: "translate(-50%, -50%)",
     borderRadius: "4px",
     backgroundColor: "#e6e6e6",
+    zIndex: "1000",
   },
 };
