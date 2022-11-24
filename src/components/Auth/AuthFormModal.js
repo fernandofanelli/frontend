@@ -2,8 +2,9 @@ import { useRef, useEffect, useState } from "react";
 import Button from "../ui/Button";
 import FormInput from "../ui/FormInput";
 import CustomModal from "../ui/CustomModal";
-import useAuthStore from "../../store/useAuthStore";
+import CustomErrorModal from "../ErrorModal/CustomErrorModal";
 
+import useAuthStore from "../../store/useAuthStore";
 import classes from "./AuthFormModal.module.css";
 
 const AuthFormModal = ({ closeModal }) => {
@@ -42,19 +43,28 @@ const AuthFormModal = ({ closeModal }) => {
     }
   };
 
-  const customModalContent = (
-    <div>
-      <h1>
-        <p>{"Authentication Error"}</p>
-      </h1>
-      <p>{errMsg}</p>
-      <Button
-        type="button"
-        className={classes.actions}
-        onClick={closeErrorModal}
-        text="Close"
-      />
-    </div>
+  // const customModalContent = (
+  //   <div className={classes.errModal}>
+  //     <h1>
+  //       <u>
+  //         <p>{"Authentication Error"}</p>
+  //       </u>
+  //     </h1>
+  //     <p>{errMsg}</p>
+  //     <Button
+  //       type="button"
+  //       className={classes.actions}
+  //       onClick={closeErrorModal}
+  //       text="Close"
+  //     />
+  //   </div>
+  // );
+  const CustomModalContent = (
+    <CustomErrorModal
+      title="Authentication Error"
+      errMsg={errMsg}
+      onClick={closeErrorModal}
+    />
   );
 
   const NameInput = (
@@ -73,12 +83,14 @@ const AuthFormModal = ({ closeModal }) => {
         type="email"
         text="Your Email"
         innerRef={emailInputRef}
+        maxLength="50"
       />
       <FormInput
         className={classes.control}
         type="password"
         text="Your Password"
         innerRef={passwordInputRef}
+        maxLength="20"
       />
     </>
   );
@@ -124,7 +136,7 @@ const AuthFormModal = ({ closeModal }) => {
       </section>
 
       {errMsg.length !== 0 && (
-        <CustomModal closed={closeErrorModal}>{customModalContent}</CustomModal>
+        <CustomModal closed={closeErrorModal}>{CustomModalContent}</CustomModal>
       )}
     </CustomModal>
   );
