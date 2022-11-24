@@ -29,7 +29,7 @@ const Book = ({ book }) => {
 
   return (
     <Card className={classes.root}>
-      <Link to={`book/${book.id}`} onClick={() => setBookView(book)}>
+      <Link to={`/book/${book.id}`} onClick={() => setBookView(book)}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
