@@ -5,6 +5,7 @@ const useBooksStore = create((set) => ({
   books: [],
   bookView: {},
   searchedBooks: [],
+  bookCreated: false,
   isLoading: false,
   errMsg: "",
   getBooks: async (data) => {
@@ -42,10 +43,12 @@ const useBooksStore = create((set) => ({
     const res = await postBook(data);
     const json = await res.json().then((d) => d);
     set({
+      bookCreated: res.ok ? true : false,
       isLoading: false,
       errMsg: res.ok ? "" : json.message,
     });
   },
+  cleanBookCreated: () => set({ bookCreated: false }),
   cleanErrMsg: () => set({ errMsg: "" }),
   cleanSearchBooks: () => set({ searchedBooks: [] }),
 }));

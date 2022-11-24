@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthFormModal from "../Auth/AuthFormModal";
-import BookFormModal from "../BookEditModal/BookFormModal";
+import BookFormModal from "../BookModal/BookFormModal";
 
 import useAuthStore from "../../store/useAuthStore";
 import CustomAvatar from "../ui/CustomAvatar";
