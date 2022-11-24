@@ -1,54 +1,88 @@
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Grid, Input, InputAdornment } from "@mui/material";
 import Book from "../../components/Book/components/Book";
-import Button from "../../components/ui/Button";
-import { Fade } from "react-awesome-reveal";
+import Carousel from "react-multi-carousel";
 
 import useAuthStore from "../../store/useAuthStore";
-import useBooksStore from "../../store/useBooksStore";
-import classes from "./Profile.module.css";
+import useUserBooksStore from "../../store/useUserBooksStore";
+import SearchIcon from "@mui/icons-material/Search";
+import useStyles from "./styles";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "react-multi-carousel/lib/styles.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Profile = () => {
-  const { userBooks, getUserBooks } = useBooksStore();
   const { userData } = useAuthStore();
+  const { userBooks, getUserBooks, borrowedBooks, getAllUserBorrowingBooks } =
+    useUserBooksStore();
+  const [searchBook, setSearchBook] = useState("");
+  const classes = useStyles();
 
   useEffect(() => {
-    getUserBooks(userData.id);
-    console.log(userBooks);
-    console.log(userData);
+    getUserBooks(userData.userId);
+    getAllUserBorrowingBooks(userData.userId);
   }, []);
+
+  // const SearchBar = (
+  //   <div className={classes.searchs}>
+  //     <Input
+  //       className={classes.searchb}
+  //       type="text"
+  //       placeholder="Search..."
+  //       onChange={(event) => {
+  //         setSearchBook(event.target.value);
+  //       }}
+  //       startAdornment={
+  //         <InputAdornment position="start">
+  //           <SearchIcon fontSize="medium" htmlColor="black" />
+  //         </InputAdornment>
+  //       }
+  //     />
+  //   </div>
+  // );
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      slidesToSlide: 3, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
 
   return (
     <div>
-      <div className={classes.parentDiv}>
-        <div className={classes.leftDiv}>
-          <label className={classes.customFileUpload}>
-            <div className={classes.imgWrap}>
-              <img src="" alt="user img" />
-            </div>
-          </label>
-        </div>
-        <div className={classes.rightDiv}>
-          <div className={classes.name}>{userData.name}</div>
-          <div className={classes.email}>{userData.email}</div>
-          <div className={classes.name}>
-            Amount of books owned: {userBooks.length}
-          </div>
-          <div className={classes.name}>Amount of books ordered: 0</div>
-        </div>
+      <h2 className={classes.section}>Borrowed Books</h2>
+      <Carousel responsive={responsive}>
+        {borrowedBooks.map((bb) => (
+          <Book book={bb} buttonName="Return" hideExtraData />
+        ))}
+      </Carousel>
+      {/* {SearchBar} */}
+      <h2 className={classes.section}>Owned Books</h2>
+      <div className={classes.content}>
+        <Grid
+          className={classes.container}
+          container
+          justify="center"
+          spacing={5}
+        >
+          {userBooks.map((ub, key) => (
+            <Grid item key={key} xs={12} sm={6} md={4} lg={3} id="books">
+              <Book book={ub} buttonName="Edit" hideExtraData />
+            </Grid>
+          ))}
+        </Grid>
       </div>
-      <Button className={classes.actions}>Edit Profile</Button>
-
-      <Fade bottom cascade>
-        {!userBooks ? (
-          <div>Loading...</div>
-        ) : (
-          <ul className={classes.books}>
-            {userBooks.map((book, key) => (
-              <Book book={book} key={key} />
-            ))}
-          </ul>
-        )}
-      </Fade>
     </div>
   );
 };

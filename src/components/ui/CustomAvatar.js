@@ -1,11 +1,11 @@
 import React from "react";
 import Avatar from "react-avatar";
 
-const CustomAvatar = ({ image }) => {
+const CustomAvatar = ({ name }) => {
   return (
     <Avatar
       id="avatar"
-      src={image}
+      name={name}
       size="50px"
       round={true}
       style={{ borderRadius: "10px" }}

@@ -14,7 +14,8 @@ function App() {
   const { refreshSession, isSigned } = useAuthStore();
 
   useEffect(() => {
-    if (getCurrentUserToken() !== "") refreshSession();
+    const token = getCurrentUserToken();
+    if (token !== "" && token !== "undefined") refreshSession(token);
   }, []);
 
   const AuthenticatedUser = (
@@ -32,15 +33,7 @@ function App() {
     </Routes>
   );
 
-  return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/book/:id" element={<BookDetail />} />
-      </Routes>
-    </Layout>
-  );
+  return <Layout>{isSigned ? AuthenticatedUser : BaseUser}</Layout>;
 }
 
 export default App;

@@ -20,20 +20,13 @@ const Books = () => {
   }, []);
 
   useEffect(() => {
-    if (searchBook.length === 0) {
-      //getBooks();
-      cleanSearchBooks();
-    }
-    if (searchBook.length > 2) {
-      searchBooks(searchBook);
-    }
+    if (searchBook.length === 0) cleanSearchBooks();
+    if (searchBook.length > 2) searchBooks(searchBook);
   }, [searchBook]);
 
   const searchHandler = (e) => {
     setSearchBook(e.target.value);
   };
-
-  console.log(searchedBooks);
 
   const SearchBar = (
     <div className={classes.searchs}>

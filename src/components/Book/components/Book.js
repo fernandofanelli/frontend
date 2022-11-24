@@ -12,21 +12,43 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { Link } from "react-router-dom";
 
 import useAuthStore from "../../../store/useAuthStore";
-import useBooksStore from "../../../store/useBooksStore";
 import useUserBooksStore from "../../../store/useUserBooksStore";
 import useStyles from "./styles";
 
-const Book = ({ book }) => {
+const Book = ({ book, buttonName = "", hideExtraData = false }) => {
   const { isSigned, userData } = useAuthStore();
-  const { orderBook } = useUserBooksStore();
+  const { orderBook, returnBook } = useUserBooksStore();
   const [shorterTitle, setShorterTitle] = useState("false");
+  const [buttonText, setButtonText] = useState("");
+  const [buttonDisable, setButtonDisable] = useState(true);
   const classes = useStyles();
 
   useEffect(() => {
     setShorterTitle(book.title);
     if (book.title.length > 17)
       setShorterTitle(book.title.substring(0, 17) + "...");
+
+    if (buttonName === "")
+      setButtonText(book.amount ? "Order Book" : "Out of Stock");
+    else setButtonText(buttonName);
+
+    if (buttonName === "") setButtonDisable(book.amount === 0);
+    else setButtonDisable(false);
   }, []);
+
+  const buttonHandler = () => {
+    if (buttonName === "Return") returnBookHandler();
+    else if (buttonName === "Edit") {
+    } else orderBookHandler();
+  };
+
+  const returnBookHandler = () => {
+    let body = {
+      bid: book.id,
+      uid: userData.userId,
+    };
+    returnBook(body);
+  };
 
   const orderBookHandler = () => {
     let body = {
@@ -36,9 +58,21 @@ const Book = ({ book }) => {
     orderBook(body);
   };
 
+  const CustomButton = (
+    <Button
+      variant="contained"
+      className={classes.button}
+      endIcon={<BookmarkBorderIcon />}
+      onClick={buttonHandler}
+      disabled={buttonDisable}
+    >
+      <b>{buttonText}</b>
+    </Button>
+  );
+
   return (
     <Card className={classes.root}>
-      <Link to={`book/${book.id}`}>
+      <Link to={`/book/${book.id}`}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
@@ -47,26 +81,18 @@ const Book = ({ book }) => {
           />
         </CardActionArea>
       </Link>
-      <CardContent>
-        <div className={classes.cardContent}>
-          <Typography variant="h6">{shorterTitle}</Typography>
-          <Typography variant="h6" color="secondary">
-            Amount: <b>{book.amount}</b>
-          </Typography>
-        </div>
-      </CardContent>
+      {!hideExtraData && (
+        <CardContent>
+          <div className={classes.cardContent}>
+            <Typography variant="h6">{shorterTitle}</Typography>
+            <Typography variant="h6" color="secondary">
+              Amount: <b>{book.amount}</b>
+            </Typography>
+          </div>
+        </CardContent>
+      )}
       <CardActions disableSpacing className={classes.cardActions}>
-        {isSigned && (
-          <Button
-            variant="contained"
-            className={classes.button}
-            endIcon={<BookmarkBorderIcon />}
-            onClick={() => orderBookHandler()}
-            disabled={book.amount === 0}
-          >
-            <b>{book.amount ? "Order Book" : "Out of Stock"}</b>
-          </Button>
-        )}
+        {isSigned && CustomButton}
       </CardActions>
     </Card>
   );

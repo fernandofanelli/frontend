@@ -30,7 +30,7 @@ export default makeStyles(() => ({
   },
   button: {
     background: "#1C2331 !important",
-    color: "white",
+    color: "white !important",
     width: "100%",
     height: "40px",
     "&:hover": {
