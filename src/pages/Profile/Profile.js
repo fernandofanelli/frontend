@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Input, InputAdornment } from "@mui/material";
+import { Grid } from "@mui/material";
 import Book from "../../components/Book/components/Book";
 import Carousel from "react-multi-carousel";
 
 import useAuthStore from "../../store/useAuthStore";
 import useUserBooksStore from "../../store/useUserBooksStore";
-import SearchIcon from "@mui/icons-material/Search";
 import useStyles from "./styles";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "react-multi-carousel/lib/styles.css";
@@ -22,24 +21,6 @@ const Profile = () => {
     getUserBooks(userData.userId);
     getAllUserBorrowingBooks(userData.userId);
   }, []);
-
-  // const SearchBar = (
-  //   <div className={classes.searchs}>
-  //     <Input
-  //       className={classes.searchb}
-  //       type="text"
-  //       placeholder="Search..."
-  //       onChange={(event) => {
-  //         setSearchBook(event.target.value);
-  //       }}
-  //       startAdornment={
-  //         <InputAdornment position="start">
-  //           <SearchIcon fontSize="medium" htmlColor="black" />
-  //         </InputAdornment>
-  //       }
-  //     />
-  //   </div>
-  // );
 
   const responsive = {
     desktop: {
@@ -67,7 +48,6 @@ const Profile = () => {
           <Book book={bb} buttonName="Return" hideExtraData />
         ))}
       </Carousel>
-      {/* {SearchBar} */}
       <h2 className={classes.section}>Owned Books</h2>
       <div className={classes.content}>
         <Grid

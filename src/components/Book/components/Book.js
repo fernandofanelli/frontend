@@ -38,8 +38,8 @@ const Book = ({ book, buttonName = "", hideExtraData = false }) => {
 
   const buttonHandler = () => {
     if (buttonName === "Return") returnBookHandler();
-    else if (buttonName === "Edit") {
-    } else orderBookHandler();
+    else if (buttonName === "Edit") editBookHandler();
+    else orderBookHandler();
   };
 
   const returnBookHandler = () => {
@@ -48,6 +48,14 @@ const Book = ({ book, buttonName = "", hideExtraData = false }) => {
       uid: userData.userId,
     };
     returnBook(body);
+  };
+
+  const editBookHandler = () => {
+    let body = {
+      bid: book.id,
+      uid: userData.userId,
+    };
+    orderBook(body);
   };
 
   const orderBookHandler = () => {
