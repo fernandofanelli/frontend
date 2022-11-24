@@ -28,8 +28,6 @@ const Books = () => {
     setSearchBook(e.target.value);
   };
 
-  console.log(searchedBooks);
-
   const SearchBar = (
     <div className={classes.searchs}>
       <Input

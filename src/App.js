@@ -14,7 +14,8 @@ function App() {
   const { refreshSession, isSigned } = useAuthStore();
 
   useEffect(() => {
-    if (getCurrentUserToken() !== "") refreshSession();
+    const token = getCurrentUserToken();
+    if (token !== "" && token !== "undefined") refreshSession(token);
   }, []);
 
   const AuthenticatedUser = (
