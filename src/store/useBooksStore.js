@@ -5,6 +5,7 @@ import {
   getUserBooks,
   getAllUserBooks,
   getMatchingBooks,
+  getAllUserBorrowingBooks,
 } from "../api/books";
 
 const useBooksStore = create((set) => ({
@@ -59,6 +60,16 @@ const useBooksStore = create((set) => ({
   getAllUserBooks: async (data) => {
     set({ isLoading: true });
     const res = await getAllUserBooks(data);
+    const json = await res.json().then((d) => d);
+    set({
+      allUserBooks: [...json.books],
+      isLoading: false,
+      errMsg: res.ok ? "" : json.message,
+    });
+  },
+  getAllUserBorrowingBooks: async (data) => {
+    set({ isLoading: true });
+    const res = await getAllUserBorrowingBooks(data);
     const json = await res.json().then((d) => d);
     set({
       allUserBooks: [...json.books],
