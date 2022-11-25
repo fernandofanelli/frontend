@@ -4,6 +4,7 @@ import Book from "../../components/Book/components/Book";
 import Carousel from "react-multi-carousel";
 
 import useAuthStore from "../../store/useAuthStore";
+import useBooksStore from "../../store/useBooksStore";
 import useUserBooksStore from "../../store/useUserBooksStore";
 import useStyles from "./styles";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -12,15 +13,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const Profile = () => {
   const { userData } = useAuthStore();
-  const { userBooks, getUserBooks, borrowedBooks, getAllUserBorrowingBooks } =
-    useUserBooksStore();
-  const [searchBook, setSearchBook] = useState("");
+  const { bookDeleted, cleanBookDeleted } = useBooksStore();
+  const {
+    userBooks,
+    getUserBooks,
+    borrowedBooks,
+    getAllUserBorrowingBooks,
+    bookReturned,
+    cleanBookReturned,
+  } = useUserBooksStore();
   const classes = useStyles();
 
   useEffect(() => {
     getUserBooks(userData.userId);
     getAllUserBorrowingBooks(userData.userId);
-  }, []);
+
+    cleanBookDeleted();
+    cleanBookReturned();
+  }, [bookDeleted, bookReturned]);
 
   const responsive = {
     desktop: {
@@ -43,22 +53,22 @@ const Profile = () => {
   return (
     <div>
       <h2 className={classes.section}>Borrowed Books</h2>
-      <Carousel responsive={responsive}>
+      <Carousel className={classes.carousel} responsive={responsive}>
         {borrowedBooks.map((bb) => (
           <Book book={bb} buttonName="Return" hideExtraData />
         ))}
       </Carousel>
       <h2 className={classes.section}>Owned Books</h2>
-      <div className={classes.content}>
-        <Grid
-          className={classes.container}
-          container
-          justify="center"
-          spacing={5}
-        >
+      <div className={classes.container}>
+        <Grid container justify="center" spacing={1}>
           {userBooks.map((ub, key) => (
             <Grid item key={key} xs={12} sm={6} md={4} lg={3} id="books">
-              <Book book={ub} buttonName="Edit" hideExtraData />
+              <Book
+                book={ub}
+                buttonName="Edit"
+                hideExtraData
+                showRemoveButton
+              />
             </Grid>
           ))}
         </Grid>

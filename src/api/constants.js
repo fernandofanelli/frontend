@@ -6,6 +6,7 @@ export const GET_BOOKS_URL = "/books";
 export const GET_BOOK_URL = "/books/bid";
 export const GET_MATCHING_BOOKS_URL = "/books/search/:searchValue";
 export const POST_BOOK_URL = "/books";
+export const DELETE_BOOK_URL = "/books";
 export const GET_ALL_USER_BOOKS_URL = "/user-books/user";
 export const GET_ALL_USER_BORROWING_BOOKS_URL =
   "/user-books/user/borrowed/:uid";

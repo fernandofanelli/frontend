@@ -11,6 +11,8 @@ const useUserBooksStore = create((set) => ({
   userBooks: [],
   allUserBooks: [],
   borrowedBooks: [],
+  bookOrdered: false,
+  bookReturned: false,
   isLoading: false,
   errMsg: "",
   getUserBooks: async (data) => {
@@ -48,6 +50,7 @@ const useUserBooksStore = create((set) => ({
     const res = await postOrderBook(data);
     const json = await res.json().then((d) => d);
     set({
+      bookOrdered: res.ok ? true : false,
       isLoading: false,
       errMsg: res.ok ? "" : json.message,
     });
@@ -57,10 +60,14 @@ const useUserBooksStore = create((set) => ({
     const res = await returnOrderBook(data);
     const json = await res.json().then((d) => d);
     set({
+      bookReturned: res.ok ? true : false,
       isLoading: false,
       errMsg: res.ok ? "" : json.message,
     });
   },
+  cleanUserBooks: () => set({ userBooks: [] }),
+  cleanBookReturned: () => set({ bookReturned: false }),
+  cleanBookOrdered: () => set({ bookOrdered: false }),
   cleanErrMsg: () => set({ errMsg: "" }),
 }));
 

@@ -40,6 +40,7 @@ const BookDetail = () => {
             <CustomGrid label="Language" text={bookView.language} />
             <CustomGrid label="Genre" text={bookView.genre} />
             <CustomGrid label="Author" text={bookView.author} />
+            <CustomGrid label="Publisher" text={bookView.publisher} />
             <CustomGrid label="Stock" text={bookView.amount} />
           </Grid>
           <Grid container spacing={2}>

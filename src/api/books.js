@@ -4,6 +4,7 @@ import {
   GET_BOOK_URL,
   GET_MATCHING_BOOKS_URL,
   POST_BOOK_URL,
+  DELETE_BOOK_URL,
 } from "./constants";
 import { getCurrentUserToken } from "../utils/service";
 
@@ -20,9 +21,23 @@ export const getMatchingBooks = async (value) =>
 export const postBook = async (data) =>
   await fetch(`${BASE_URL}${POST_BOOK_URL}`, reqMethod(data));
 
+export const deleteBook = async (data) =>
+  await fetch(`${BASE_URL}${DELETE_BOOK_URL}`, delMethod(data));
+
 const reqMethod = (data) => {
   return {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: getCurrentUserToken(),
+    },
+    body: JSON.stringify(data),
+  };
+};
+
+const delMethod = (data) => {
+  return {
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: getCurrentUserToken(),
