@@ -21,7 +21,11 @@ export default makeStyles(() => ({
   },
   cardActions: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "center",
+  },
+  cardButtons: {
+    display: "flex",
+    justifyContent: "space-between",
   },
   cardContent: {
     display: "flex",
@@ -29,12 +33,38 @@ export default makeStyles(() => ({
     alignItems: "center",
   },
   button: {
-    background: "#1C2331 !important",
+    background: "#9f5ccc !important",
+    border: "1px solid #9f5ccc !important",
+    borderRadius: "4px !important",
     color: "white !important",
-    width: "100%",
     height: "40px",
     "&:hover": {
-      backgroundColor: "#2a344a",
+      backgroundColor: "#873abb !important",
+      border: "#873abb !important",
+      boxShadow: "none",
+    },
+  },
+  returnButton: {
+    background: "#640e9d !important",
+    border: "1px solid #640e9d !important",
+    borderRadius: "4px !important",
+    color: "white !important",
+    width: "60%",
+    height: "40px",
+    "&:hover": {
+      backgroundColor: "#38015c !important",
+      border: "#38015c !important",
+      boxShadow: "none",
+    },
+  },
+  removeButton: {
+    backgroundColor: "#3F1651 !important",
+    border: "#3F1651 !important",
+    color: "white !important",
+    height: "40px",
+    "&:hover": {
+      background: "#c61a09 !important",
+      border: "1px solid #c61a09 !important",
       boxShadow: "none",
     },
   },
