@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Button from "../ui/Button";
 import FormInput from "../ui/FormInput";
 import CustomModal from "../ui/CustomModal";
@@ -8,10 +8,11 @@ import useAuthStore from "../../store/useAuthStore";
 import useBooksStore from "../../store/useBooksStore";
 import classes from "./BookFormModal.module.css";
 
-const BookFormModal = ({ closeModal }) => {
+const BookFormModal = ({ closeModal, currentBookId = 0 }) => {
   const { userData } = useAuthStore();
-  const { bookCreated, errMsg, cleanErrMsg, cleanBookCreated, postBook } =
+  const { getBook, updateBook, bookView, bookCreated, bookUpdated, errMsg, cleanErrMsg, cleanBookCreated, cleanBookUpdated, cleanCurrentBookId, postBook } =
     useBooksStore();
+  const [ title, setTitle ] = useState();
   const titleInputRef = useRef();
   const isbnInputRef = useRef();
   const synopsisInputRef = useRef();
@@ -23,9 +24,18 @@ const BookFormModal = ({ closeModal }) => {
   const authorInputRef = useRef();
 
   useEffect(() => {
+    if( currentBookId > 0 ){
+      getBook(currentBookId)
+      titleInputRef.current = bookView.title
+      setTitle(bookView.title)
+    }
+  }, [currentBookId]);
+
+  useEffect(() => {
     if (bookCreated) closeModal();
     cleanBookCreated();
-  }, [bookCreated]);
+    cleanBookUpdated();
+  }, [bookCreated, bookUpdated]);
 
   const closeErrorModal = () => {
     cleanErrMsg();
@@ -47,8 +57,9 @@ const BookFormModal = ({ closeModal }) => {
       publisher: publisherInputRef.current.value,
       author: authorInputRef.current.value,
     };
-
-    postBook(bookData);
+  console.log("updateBook ->",currentBookId)
+  if(currentBookId > 0){ updateBook(bookData, currentBookId)}
+  else postBook(bookData);
   };
 
   const CustomModalContent = (
@@ -58,7 +69,8 @@ const BookFormModal = ({ closeModal }) => {
       onClick={closeErrorModal}
     />
   );
-
+  console.log("titleInputRef.current ->",titleInputRef.current)
+  console.log("titleInputRef ->",titleInputRef)
   const FormInputs = (
     <>
       <FormInput
@@ -67,6 +79,7 @@ const BookFormModal = ({ closeModal }) => {
         text="Title"
         innerRef={titleInputRef}
         maxLength="60"
+        //value={titleInputRef.current === "undefined" ? "" : title}
       />
       <FormInput
         className={classes.control}
