@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthFormModal from "../Auth/AuthFormModal";
 import BookFormModal from "../BookModal/BookFormModal";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 
 import useAuthStore from "../../store/useAuthStore";
 import CustomAvatar from "../ui/CustomAvatar";
@@ -58,7 +59,9 @@ const MainNavigation = () => {
           </Link>
         </li>
         <li>
-          <button onClick={openUploadBookModal}>Upload Book</button>
+          <button onClick={openUploadBookModal}>
+            Upload Book <BookmarkAddIcon />
+          </button>
         </li>
         <li>
           <button onClick={logoutHandler}>Logout</button>

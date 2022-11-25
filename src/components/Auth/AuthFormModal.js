@@ -43,22 +43,6 @@ const AuthFormModal = ({ closeModal }) => {
     }
   };
 
-  // const customModalContent = (
-  //   <div className={classes.errModal}>
-  //     <h1>
-  //       <u>
-  //         <p>{"Authentication Error"}</p>
-  //       </u>
-  //     </h1>
-  //     <p>{errMsg}</p>
-  //     <Button
-  //       type="button"
-  //       className={classes.actions}
-  //       onClick={closeErrorModal}
-  //       text="Close"
-  //     />
-  //   </div>
-  // );
   const CustomModalContent = (
     <CustomErrorModal
       title="Authentication Error"

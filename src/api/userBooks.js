@@ -27,11 +27,22 @@ export const postOrderBook = async (data) =>
   await fetch(`${BASE_URL}${ORDER_BOOK_URL}`, reqMethod(data));
 
 export const returnOrderBook = async (data) =>
-  await fetch(`${BASE_URL}${RETURN_BOOK_URL}`, reqMethod(data));
+  await fetch(`${BASE_URL}${RETURN_BOOK_URL}`, patchMethod(data));
 
 const reqMethod = (data) => {
   return {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: getCurrentUserToken(),
+    },
+    body: JSON.stringify(data),
+  };
+};
+
+const patchMethod = (data) => {
+  return {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: getCurrentUserToken(),

@@ -31,8 +31,6 @@ const BookFormModal = ({ closeModal }) => {
     cleanErrMsg();
   };
 
-  console.log(errMsg);
-
   const submitHandler = (event) => {
     event.preventDefault();
 

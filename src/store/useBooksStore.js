@@ -1,11 +1,18 @@
 import create from "zustand";
-import { getBooks, getBook, getMatchingBooks, postBook } from "../api/books";
+import {
+  getBooks,
+  getBook,
+  getMatchingBooks,
+  postBook,
+  deleteBook,
+} from "../api/books";
 
 const useBooksStore = create((set) => ({
   books: [],
   bookView: {},
   searchedBooks: [],
   bookCreated: false,
+  bookDeleted: false,
   isLoading: false,
   errMsg: "",
   getBooks: async (data) => {
@@ -48,7 +55,18 @@ const useBooksStore = create((set) => ({
       errMsg: res.ok ? "" : json.message,
     });
   },
+  deleteBook: async (data) => {
+    set({ isLoading: true });
+    const res = await deleteBook(data);
+    const json = await res.json().then((d) => d);
+    set({
+      bookDeleted: res.ok ? true : false,
+      isLoading: false,
+      errMsg: res.ok ? "" : json.message,
+    });
+  },
   cleanBookCreated: () => set({ bookCreated: false }),
+  cleanBookDeleted: () => set({ bookDeleted: false }),
   cleanErrMsg: () => set({ errMsg: "" }),
   cleanSearchBooks: () => set({ searchedBooks: [] }),
 }));
