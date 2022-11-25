@@ -13,10 +13,12 @@ import { Link } from "react-router-dom";
 
 import useAuthStore from "../../../store/useAuthStore";
 import useUserBooksStore from "../../../store/useUserBooksStore";
+import useBooksStore from "../../../store/useBooksStore";
 import useStyles from "./styles";
 
-const Book = ({ book, buttonName = "", hideExtraData = false }) => {
+const Book = ({ book, buttonName = "", hideExtraData = false , editAction = ""}) => {
   const { isSigned, userData } = useAuthStore();
+  const { setCurrentBookId, cleanCurrentBookId } = useBooksStore();
   const { orderBook, returnBook } = useUserBooksStore();
   const [shorterTitle, setShorterTitle] = useState("false");
   const [buttonText, setButtonText] = useState("");
@@ -51,11 +53,9 @@ const Book = ({ book, buttonName = "", hideExtraData = false }) => {
   };
 
   const editBookHandler = () => {
-    let body = {
-      bid: book.id,
-      uid: userData.userId,
-    };
-    orderBook(body);
+    console.log("New current book ID ->",book.id)
+    setCurrentBookId( book.id )
+    editAction();
   };
 
   const orderBookHandler = () => {

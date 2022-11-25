@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import Book from "../../components/Book/components/Book";
 import Carousel from "react-multi-carousel";
+import BookFormModal from "../../components/BookModal/BookFormModal";
 
 import useAuthStore from "../../store/useAuthStore";
 import useUserBooksStore from "../../store/useUserBooksStore";
+import useBooksStore from "../../store/useBooksStore";
 import useStyles from "./styles";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "react-multi-carousel/lib/styles.css";
@@ -13,14 +15,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const Profile = () => {
   const { userData } = useAuthStore();
   const { userBooks, getUserBooks, borrowedBooks, getAllUserBorrowingBooks } =
-    useUserBooksStore();
-  const [searchBook, setSearchBook] = useState("");
+  useUserBooksStore();
+  const { setCurrentBookId, cleanCurrentBookId, currentBookId } = useBooksStore();
+  const [uploadBookModal, setUploadBook] = useState(null);
   const classes = useStyles();
 
   useEffect(() => {
     getUserBooks(userData.userId);
     getAllUserBorrowingBooks(userData.userId);
   }, []);
+
+  const openUploadBookModal = () => {
+    // setCurrentBookId(currentBookId)
+    console.log("Old current book ID ->", currentBookId)
+    setUploadBook(true);
+  };
+  
+  const closeUploadBookModal = () => {
+    cleanCurrentBookId();
+    setUploadBook(null);
+  };
 
   const responsive = {
     desktop: {
@@ -58,11 +72,12 @@ const Profile = () => {
         >
           {userBooks.map((ub, key) => (
             <Grid item key={key} xs={12} sm={6} md={4} lg={3} id="books">
-              <Book book={ub} buttonName="Edit" hideExtraData />
+              <Book book={ub} buttonName="Edit" hideExtraData editAction = {openUploadBookModal} currentBookId = {currentBookId} />
             </Grid>
           ))}
         </Grid>
       </div>
+      {uploadBookModal && <BookFormModal closeModal={closeUploadBookModal} currentBookId = {currentBookId} />}
     </div>
   );
 };
