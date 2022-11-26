@@ -9,6 +9,7 @@ import Layout from "./components/Layout/Layout";
 import useAuthStore from "./store/useAuthStore";
 import { getCurrentUserToken } from "./utils/service";
 import "./App.css";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const { refreshSession, isSigned } = useAuthStore();
@@ -33,7 +34,13 @@ function App() {
     </Routes>
   );
 
-  return <Layout>{isSigned ? AuthenticatedUser : BaseUser}</Layout>;
+  return (
+    <>
+      <Layout>
+        {isSigned ? AuthenticatedUser : BaseUser} <Footer />
+      </Layout>
+    </>
+  );
 }
 
 export default App;
