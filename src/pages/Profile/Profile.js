@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import Book from "../../components/Book/components/Book";
 import Carousel from "react-multi-carousel";
+import BookFormModal from "../../components/BookModal/BookFormModal";
 
 import useAuthStore from "../../store/useAuthStore";
 import useBooksStore from "../../store/useBooksStore";
@@ -13,7 +14,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const Profile = () => {
   const { userData } = useAuthStore();
-  const { bookDeleted, cleanBookDeleted } = useBooksStore();
+  const {
+    bookDeleted,
+    cleanBookDeleted,
+    setCurrentBookId,
+    cleanCurrentBookId,
+    currentBookId,
+  } = useBooksStore();
   const {
     userBooks,
     getUserBooks,
@@ -22,6 +29,7 @@ const Profile = () => {
     bookReturned,
     cleanBookReturned,
   } = useUserBooksStore();
+  const [uploadBookModal, setUploadBook] = useState(null);
   const classes = useStyles();
 
   useEffect(() => {
@@ -31,6 +39,16 @@ const Profile = () => {
     cleanBookDeleted();
     cleanBookReturned();
   }, [bookDeleted, bookReturned]);
+
+  const openUploadBookModal = () => {
+    // setCurrentBookId(currentBookId)
+    setUploadBook(true);
+  };
+
+  const closeUploadBookModal = () => {
+    cleanCurrentBookId();
+    setUploadBook("");
+  };
 
   const responsive = {
     desktop: {
@@ -68,11 +86,20 @@ const Profile = () => {
                 buttonName="Edit"
                 hideExtraData
                 showRemoveButton
+                editAction={openUploadBookModal}
+                currentBookId={currentBookId}
               />
             </Grid>
           ))}
         </Grid>
       </div>
+      {uploadBookModal && (
+        <BookFormModal
+          closeModal={closeUploadBookModal}
+          currentBookId={currentBookId}
+          formTitle="Edit Book"
+        />
+      )}
     </div>
   );
 };

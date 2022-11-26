@@ -79,7 +79,12 @@ const MainNavigation = () => {
         {isSigned ? LogoutNavigation : LoginNavigation}
       </header>
       {authModal && <AuthFormModal closeModal={closeLoginModal} />}
-      {uploadBookModal && <BookFormModal closeModal={closeUploadBookModal} />}
+      {uploadBookModal && (
+        <BookFormModal
+          closeModal={closeUploadBookModal}
+          formTitle="Upload New Book"
+        />
+      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Button from "../ui/Button";
 import FormInput from "../ui/FormInput";
 import CustomModal from "../ui/CustomModal";
@@ -8,10 +8,22 @@ import useAuthStore from "../../store/useAuthStore";
 import useBooksStore from "../../store/useBooksStore";
 import classes from "./BookFormModal.module.css";
 
-const BookFormModal = ({ closeModal }) => {
+const BookFormModal = ({ closeModal, formTitle, currentBookId = 0 }) => {
   const { userData } = useAuthStore();
-  const { bookCreated, errMsg, cleanErrMsg, cleanBookCreated, postBook } =
-    useBooksStore();
+  const {
+    getBook,
+    updateBook,
+    bookView,
+    bookCreated,
+    bookUpdated,
+    errMsg,
+    cleanErrMsg,
+    cleanBookCreated,
+    cleanBookUpdated,
+    cleanCurrentBookId,
+    postBook,
+  } = useBooksStore();
+  const [title, setTitle] = useState();
   const titleInputRef = useRef();
   const isbnInputRef = useRef();
   const synopsisInputRef = useRef();
@@ -23,9 +35,26 @@ const BookFormModal = ({ closeModal }) => {
   const authorInputRef = useRef();
 
   useEffect(() => {
+    if (currentBookId > 0) {
+      getBook(currentBookId);
+      titleInputRef.current = bookView.title;
+      setTitle(bookView.title);
+    }
+  }, [currentBookId]);
+
+  useEffect(() => {
+    if (currentBookId > 0) {
+      getBook(currentBookId);
+      titleInputRef.current = bookView.title;
+      setTitle(bookView.title);
+    }
+  }, [currentBookId]);
+
+  useEffect(() => {
     if (bookCreated) closeModal();
     cleanBookCreated();
-  }, [bookCreated]);
+    cleanBookUpdated();
+  }, [bookCreated, bookUpdated]);
 
   const closeErrorModal = () => {
     cleanErrMsg();
@@ -47,18 +76,18 @@ const BookFormModal = ({ closeModal }) => {
       publisher: publisherInputRef.current.value,
       author: authorInputRef.current.value,
     };
-
-    postBook(bookData);
+    console.log("update Book ->", currentBookId);
+    if (currentBookId > 0) updateBook(bookData, currentBookId);
+    else postBook(bookData);
   };
 
   const CustomModalContent = (
     <CustomErrorModal
-      title="Book creation Error"
+      title={{ formTitle } + " Error"}
       errMsg={errMsg}
       onClick={closeErrorModal}
     />
   );
-
   const FormInputs = (
     <>
       <FormInput
@@ -67,6 +96,7 @@ const BookFormModal = ({ closeModal }) => {
         text="Title"
         innerRef={titleInputRef}
         maxLength="60"
+        //value={titleInputRef.current === "undefined" ? "" : title}
       />
       <FormInput
         className={classes.control}
@@ -144,7 +174,7 @@ const BookFormModal = ({ closeModal }) => {
   return (
     <CustomModal closed={closeModal} style={modalStyle}>
       <section className={classes.auth}>
-        <h1>Upload New Book</h1>
+        <h1>{formTitle}</h1>
         <form onSubmit={submitHandler}>
           {FormInputs}
           <div className={classes.actions}>

@@ -14,7 +14,7 @@ const useUserBooksStore = create((set) => ({
   bookOrdered: false,
   bookReturned: false,
   isLoading: false,
-  errMsg: "",
+  userBookErrMsg: "",
   getUserBooks: async (data) => {
     set({ isLoading: true });
     const res = await getUserBooks(data);
@@ -22,7 +22,7 @@ const useUserBooksStore = create((set) => ({
     set({
       userBooks: [...json.data],
       isLoading: false,
-      errMsg: res.ok ? "" : json.message,
+      userBookErrMsg: res.ok ? "" : json.message,
     });
   },
   getAllUserBooks: async (data) => {
@@ -32,7 +32,7 @@ const useUserBooksStore = create((set) => ({
     set({
       allUserBooks: [...json.data],
       isLoading: false,
-      errMsg: res.ok ? "" : json.message,
+      userBookErrMsg: res.ok ? "" : json.message,
     });
   },
   getAllUserBorrowingBooks: async (data) => {
@@ -42,7 +42,7 @@ const useUserBooksStore = create((set) => ({
     set({
       borrowedBooks: [...json.data],
       isLoading: false,
-      errMsg: res.ok ? "" : json.message,
+      userBookErrMsg: res.ok ? "" : json.message,
     });
   },
   orderBook: async (data) => {
@@ -52,7 +52,7 @@ const useUserBooksStore = create((set) => ({
     set({
       bookOrdered: res.ok ? true : false,
       isLoading: false,
-      errMsg: res.ok ? "" : json.message,
+      userBookErrMsg: res.ok ? "" : json.message,
     });
   },
   returnBook: async (data) => {
@@ -62,13 +62,13 @@ const useUserBooksStore = create((set) => ({
     set({
       bookReturned: res.ok ? true : false,
       isLoading: false,
-      errMsg: res.ok ? "" : json.message,
+      userBookErrMsg: res.ok ? "" : json.message,
     });
   },
   cleanUserBooks: () => set({ userBooks: [] }),
   cleanBookReturned: () => set({ bookReturned: false }),
   cleanBookOrdered: () => set({ bookOrdered: false }),
-  cleanErrMsg: () => set({ errMsg: "" }),
+  cleanUserBookErrMsg: () => set({ userBookErrMsg: "" }),
 }));
 
 export default useUserBooksStore;
