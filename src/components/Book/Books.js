@@ -24,7 +24,8 @@ const Books = () => {
     errMsg,
     cleanErrMsg,
   } = useBooksStore();
-  const { bookOrdered } = useUserBooksStore();
+  const { bookOrdered, userBookErrMsg, cleanUserBookErrMsg } =
+    useUserBooksStore();
   const [searchBook, setSearchBook] = useState("");
   const classes = useStyles();
 
@@ -44,6 +45,7 @@ const Books = () => {
 
   const closeErrorModal = () => {
     cleanErrMsg();
+    cleanUserBookErrMsg();
   };
 
   const SearchBar = (
@@ -82,10 +84,18 @@ const Books = () => {
     </Grid>
   ));
 
-  const CustomModalContent = (
+  const CustomDeleteErrorModalContent = (
     <CustomErrorModal
       title="Delete Error"
       errMsg={errMsg}
+      onClick={closeErrorModal}
+    />
+  );
+
+  const CustomOrderErrorModalContent = (
+    <CustomErrorModal
+      title="Order Error"
+      errMsg={userBookErrMsg}
       onClick={closeErrorModal}
     />
   );
@@ -102,7 +112,14 @@ const Books = () => {
         </Grid>
       </div>
       {errMsg.length !== 0 && (
-        <CustomModal closed={closeErrorModal}>{CustomModalContent}</CustomModal>
+        <CustomModal closed={closeErrorModal}>
+          {CustomDeleteErrorModalContent}
+        </CustomModal>
+      )}
+      {userBookErrMsg.length !== 0 && (
+        <CustomModal closed={closeErrorModal}>
+          {CustomOrderErrorModalContent}
+        </CustomModal>
       )}
     </section>
   );

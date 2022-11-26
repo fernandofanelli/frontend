@@ -27,9 +27,16 @@ const Book = ({
   hideExtraData = false,
   showRemoveButton = false,
   disabled = false,
+  editAction = "",
 }) => {
   const { isSigned, userData } = useAuthStore();
-  const { deleteBook, errMsg, cleanErrMsg } = useBooksStore();
+  const {
+    deleteBook,
+    errMsg,
+    cleanErrMsg,
+    setCurrentBookId,
+    cleanCurrentBookId,
+  } = useBooksStore();
   const { orderBook, returnBook, bookOrdered, cleanBookOrdered } =
     useUserBooksStore();
   const [shorterTitle, setShorterTitle] = useState("false");
@@ -57,11 +64,8 @@ const Book = ({
   };
 
   const editBookHandler = () => {
-    let body = {
-      bid: book.id,
-      uid: userData.userId,
-    };
-    orderBook(body);
+    setCurrentBookId(book.id);
+    editAction();
   };
 
   const removeBookHandler = () => {
