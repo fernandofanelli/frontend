@@ -42,13 +42,12 @@ const Profile = () => {
 
   const openUploadBookModal = () => {
     // setCurrentBookId(currentBookId)
-    console.log("Old current book ID ->", currentBookId);
     setUploadBook(true);
   };
 
   const closeUploadBookModal = () => {
     cleanCurrentBookId();
-    setUploadBook(null);
+    setUploadBook("");
   };
 
   const responsive = {
@@ -98,6 +97,7 @@ const Profile = () => {
         <BookFormModal
           closeModal={closeUploadBookModal}
           currentBookId={currentBookId}
+          formTitle="Edit Book"
         />
       )}
     </div>

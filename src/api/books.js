@@ -28,6 +28,7 @@ export const postBook = async (data) =>
 
 export const deleteBook = async (data) =>
   await fetch(`${BASE_URL}${DELETE_BOOK_URL}`, delMethod(data));
+
 export const patchBook = async (data, bid) =>
   await fetch(
     `${BASE_URL}${PATCH_BOOK_URL.replace("bid", bid)}`,
@@ -39,6 +40,7 @@ const reqMethod = (data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Accept: "*/*",
       Authorization: getCurrentUserToken(),
     },
     body: JSON.stringify(data),
@@ -61,6 +63,8 @@ const patchMethod = (data) => {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      "Access-Control-Allow-Headers":
+        "Origin, X-Requested-With, Content-Type, Accept",
       Authorization: getCurrentUserToken(),
     },
     body: JSON.stringify(data),

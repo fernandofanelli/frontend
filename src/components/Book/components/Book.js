@@ -64,7 +64,6 @@ const Book = ({
   };
 
   const editBookHandler = () => {
-    console.log("New current book ID ->", book.id);
     setCurrentBookId(book.id);
     editAction();
   };
