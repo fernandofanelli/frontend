@@ -50,7 +50,7 @@ const Footer = () => {
                 <i className="fa fa-envelope mr-3" /> grupo03leo@gmail.com
               </p>
               <p>
-                <i className="fa fa-phone mr-3" /> +54 11-5567-2273
+                <i className="fa fa-phone mr-3" /> +54 11-5567-2290
               </p>
               <p>
                 <i className="fa fa-home mr-3" /> Arg. Buenos Aires, Vte Lopez
