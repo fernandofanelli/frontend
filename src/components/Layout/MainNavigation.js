@@ -83,6 +83,7 @@ const MainNavigation = () => {
         <BookFormModal
           closeModal={closeUploadBookModal}
           formTitle="Upload New Book"
+          newBook
         />
       )}
     </>

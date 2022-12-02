@@ -21,6 +21,8 @@ const Books = () => {
     cleanSearchBooks,
     bookDeleted,
     cleanBookDeleted,
+    bookUpdated,
+    bookCreated,
     errMsg,
     cleanErrMsg,
   } = useBooksStore();
@@ -32,7 +34,7 @@ const Books = () => {
   useEffect(() => {
     getBooks();
     cleanBookDeleted();
-  }, [bookDeleted, bookOrdered]);
+  }, [bookDeleted, bookOrdered, bookUpdated, bookCreated]);
 
   useEffect(() => {
     if (searchBook.length === 0) cleanSearchBooks();
@@ -64,7 +66,7 @@ const Books = () => {
     </div>
   );
 
-  const AllBook = books.map((book) => (
+  const AllBooks = books.map((book) => (
     <Grid item key={book.id} xs={12} sm={6} md={4} lg={3} id="books">
       <Book
         book={book}
@@ -108,7 +110,7 @@ const Books = () => {
       {SearchBar}
       <div className={classes.content}>
         <Grid container justify="center" spacing={5}>
-          {searchBook.length < 3 ? AllBook : SearchedBook}
+          {searchBook.length < 3 ? AllBooks : SearchedBook}
         </Grid>
       </div>
       {errMsg.length !== 0 && (

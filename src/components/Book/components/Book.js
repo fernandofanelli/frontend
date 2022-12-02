@@ -30,13 +30,7 @@ const Book = ({
   editAction = "",
 }) => {
   const { isSigned, userData } = useAuthStore();
-  const {
-    deleteBook,
-    errMsg,
-    cleanErrMsg,
-    setCurrentBookId,
-    cleanCurrentBookId,
-  } = useBooksStore();
+  const { deleteBook, errMsg, cleanErrMsg, setCurrentBookId } = useBooksStore();
   const { orderBook, returnBook, bookOrdered, cleanBookOrdered } =
     useUserBooksStore();
   const [shorterTitle, setShorterTitle] = useState("false");

@@ -6,6 +6,12 @@ export default makeStyles(() => ({
     marginTop: "15px",
     justifyContent: "center",
   },
+  infoMessage: {
+    display: "flex",
+    marginTop: "5px",
+    justifyContent: "center",
+    fontSize: "20px",
+  },
   carousel: {
     display: "flex",
     marginLeft: "5%",
