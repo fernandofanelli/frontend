@@ -16,8 +16,9 @@ const Profile = () => {
   const { userData } = useAuthStore();
   const {
     bookDeleted,
+    bookUpdated,
+    bookCreated,
     cleanBookDeleted,
-    setCurrentBookId,
     cleanCurrentBookId,
     currentBookId,
   } = useBooksStore();
@@ -38,16 +39,15 @@ const Profile = () => {
 
     cleanBookDeleted();
     cleanBookReturned();
-  }, [bookDeleted, bookReturned]);
+  }, [bookDeleted, bookReturned, bookUpdated, bookCreated]);
 
   const openUploadBookModal = () => {
-    // setCurrentBookId(currentBookId)
     setUploadBook(true);
   };
 
   const closeUploadBookModal = () => {
     cleanCurrentBookId();
-    setUploadBook("");
+    setUploadBook(false);
   };
 
   const responsive = {
@@ -68,30 +68,62 @@ const Profile = () => {
     },
   };
 
+  const BorrowedTipMessage = (
+    <div>
+      <p className={classes.infoMessage}>
+        Currently you don't have any book borrowed. Remember you can borrowed up
+        to 5 books.
+      </p>
+      <p className={classes.infoMessage}>
+        Get started by pressing "Order Book" in the Home.
+      </p>
+    </div>
+  );
+
+  const OwnedTipMessage = (
+    <div>
+      <p className={classes.infoMessage}>
+        Currently you don't have any books owned. Remember you don't have limits
+        on the amount of books you want to upload.
+      </p>
+      <p className={classes.infoMessage}>
+        Get started by pressing "Upload Book" next to your profile icon.
+      </p>
+    </div>
+  );
+
   return (
     <div>
       <h2 className={classes.section}>Borrowed Books</h2>
-      <Carousel className={classes.carousel} responsive={responsive}>
-        {borrowedBooks.map((bb) => (
-          <Book book={bb} buttonName="Return" hideExtraData />
-        ))}
-      </Carousel>
+      {borrowedBooks.length === 0 ? (
+        BorrowedTipMessage
+      ) : (
+        <Carousel className={classes.carousel} responsive={responsive}>
+          {borrowedBooks.map((bb, key) => (
+            <Book book={bb} key={key} buttonName="Return" hideExtraData />
+          ))}
+        </Carousel>
+      )}
       <h2 className={classes.section}>Owned Books</h2>
       <div className={classes.container}>
-        <Grid container justify="center" spacing={1}>
-          {userBooks.map((ub, key) => (
-            <Grid item key={key} xs={12} sm={6} md={4} lg={3} id="books">
-              <Book
-                book={ub}
-                buttonName="Edit"
-                hideExtraData
-                showRemoveButton
-                editAction={openUploadBookModal}
-                currentBookId={currentBookId}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {userBooks.length === 0 ? (
+          OwnedTipMessage
+        ) : (
+          <Grid container justify="center" spacing={1}>
+            {userBooks.map((ub, key) => (
+              <Grid item key={key} xs={12} sm={6} md={4} lg={3} id="books">
+                <Book
+                  book={ub}
+                  buttonName="Edit"
+                  hideExtraData
+                  showRemoveButton
+                  editAction={openUploadBookModal}
+                  currentBookId={currentBookId}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </div>
       {uploadBookModal && (
         <BookFormModal
