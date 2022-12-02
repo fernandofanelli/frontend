@@ -1,3 +1,4 @@
+import { json } from "react-router-dom";
 import create from "zustand";
 import {
   getUserBooks,
@@ -20,7 +21,7 @@ const useUserBooksStore = create((set) => ({
     const res = await getUserBooks(data);
     const json = await res.json().then((d) => d);
     set({
-      userBooks: [...json.data],
+      userBooks: res.ok ? [...json.data] : [],
       isLoading: false,
       userBookErrMsg: res.ok ? "" : json.message,
     });
@@ -30,7 +31,7 @@ const useUserBooksStore = create((set) => ({
     const res = await getAllUserBooks(data);
     const json = await res.json().then((d) => d);
     set({
-      allUserBooks: [...json.data],
+      allUserBooks: res.ok ? [...json.data] : [],
       isLoading: false,
       userBookErrMsg: res.ok ? "" : json.message,
     });
@@ -40,7 +41,7 @@ const useUserBooksStore = create((set) => ({
     const res = await getAllUserBorrowingBooks(data);
     const json = await res.json().then((d) => d);
     set({
-      borrowedBooks: [...json.data],
+      borrowedBooks: json.data.length !== 0 ? [...json.data] : [],
       isLoading: false,
       userBookErrMsg: res.ok ? "" : json.message,
     });

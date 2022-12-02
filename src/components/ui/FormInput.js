@@ -1,6 +1,14 @@
 import React from "react";
 
-const FormInput = ({ className, type, text, innerRef, maxLength = "30", value = "" }) => {
+const FormInput = ({
+  className,
+  type,
+  text,
+  innerRef,
+  maxLength = "30",
+  value = "",
+  onChange = () => {},
+}) => {
   return (
     <div className={className}>
       <label htmlFor={type}>{text}</label>
@@ -10,7 +18,8 @@ const FormInput = ({ className, type, text, innerRef, maxLength = "30", value = 
         required
         ref={innerRef}
         maxLength={maxLength}
-        //value={value}
+        defaultValue={value}
+        onChange={onChange}
       />
     </div>
   );

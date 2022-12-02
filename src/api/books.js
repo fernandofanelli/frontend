@@ -63,8 +63,8 @@ const patchMethod = (data) => {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Headers":
-        "Origin, X-Requested-With, Content-Type, Accept",
+      // "Access-Control-Allow-Headers":
+      //   "Origin, X-Requested-With, Content-Type, Accept",
       Authorization: getCurrentUserToken(),
     },
     body: JSON.stringify(data),
